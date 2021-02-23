@@ -7,8 +7,8 @@ Since the text edit shortcuts on Emacs (and Mac) are very handy, this script
 brings some of them to PC. For example, C-p/n/b/f to move the cursor
 up/down/left/right. (C stands for Ctrl on Emacs, but it would be easier to use
 if Ctrl is in CapsLock's place. Thus, CapsLock is used as the modifier key in
-this script. Ctrl and CapsLock can be easily swapped in Mac under System
-Preferences, but it is not the case for Windows.)
+this script. Afterall, Ctrl and CapsLock can be easily swapped in Mac under
+System Preferences, but it is not the case for Windows.)
 
 It is also aimed to bridge the gap between Mac and Windows system shortcuts in
 order to unify the user experience. For instance, media control and switching
@@ -40,7 +40,7 @@ SendMode Input  ; Recommended for superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ; =============================================================================
-;   Quick AHK actions
+;   Quick AHK controls
 ; =============================================================================
 
 LWin & 1:: Suspend  ; Useful when gaming
@@ -53,15 +53,26 @@ LWin & 2:: Reload  ; Useful when the software stuck
 LWin & 3:: Edit
 LWin & 4:: Exitapp
 
+; =============================================================================
+;   Prepare CapsLock to use as a modifier key
+; =============================================================================
+
+; Disables CapsLock to avoid mis-touch
+CapsLock::Ctrl
+/*
+However, can't actually use CapsLock as Ctrl since `CapsLock & <key>` hot keys
+are present. Note that the Ctrl key is never remapped and can be used normally
+for Control-click, Ctrl-Shift-Esc, etc.
+
+The solution here https://www.autohotkey.com/docs/KeyList.htm#IME doesn't work.
+*/
+
+; Alt + CapsLock to toggle CapsLock state
+!CapsLock:: return  ; A single return mysteriously works for this purpose
+
 ; #############################################################################
 ;   Emacs text edit commands
 ; #############################################################################
-
-/* `CapsLock::Ctrl` can't be used for long press ctrl-click since `CapsLock &
-<key>` hot keys are present. https://www.autohotkey.com/docs/KeyList.htm#IME
-doesn't work. Thus, the Ctrl key is not, and shouldn't be, remapped in order to
-perform those actions: Control-click; Ctrl-Shift-Esc for Task Manager.
-*/
 
 ; =============================================================================
 ;   Cursor movement
@@ -102,11 +113,13 @@ LWin & Space:: vk1D  ; Muhennkann key on JP keyboards
 
 ; Cycle through languages like Mac
 Alt & Space:: sendInput, {Alt down}{Shift down}{Shift up}{Alt up}
-    ; Don't know why setting "ctrl + shift" in Win and mock it here won't work.
+    ; Don't know why setting "Ctrl + Shift" in Win and mock it here won't work.
 
 ; #############################################################################
 ;   Replace Ctrl with Alt/Win in common hot keys
 ; #############################################################################
+
+; Since Ctrl is hard to reach as a modifier key.
 
 Alt & c:: sendInput, {Ctrl down}c{Ctrl up}  ; Also to terminate terminal thread
 Alt & x:: sendInput, {Ctrl down}x{Ctrl up}
@@ -134,7 +147,7 @@ LWin & f:: sendInput, {Ctrl down}f{Ctrl up}  ; Find
 ; #############################################################################
 
 ; =============================================================================
-;   Media control
+;   Media control: Alt + Functional numeric keys
 ; =============================================================================
 
 Alt & F7:: Send {Media_Prev}
