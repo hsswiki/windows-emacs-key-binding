@@ -58,17 +58,20 @@ LWin & 4:: Exitapp
 ; =============================================================================
 
 ; Disables CapsLock to avoid mis-touch
-CapsLock::Ctrl
+CapsLock:: Ctrl
+
 /*
-However, can't actually use CapsLock as Ctrl since `CapsLock & <key>` hot keys
-are present. Note that the Ctrl key is never remapped and can be used normally
-for Control-click, Ctrl-Shift-Esc, etc.
+CapsLock + any modifier key (Ctrl/Shift/Alt) to toggle CapsLock state.
+
+`^CapsLock:: CapsLock` won't work here since `CapsLock & <key>` hot keys are
+present. That also prevents CapsLock from acting as Ctrl, though we specified
+`CapsLock:: Ctrl` above.
+
+Note that the Ctrl key is never remapped. Thus, we can use it as normal for
+Control-click, Ctrl-Shift-Esc, etc.
 
 The solution here https://www.autohotkey.com/docs/KeyList.htm#IME doesn't work.
 */
-
-; Alt + CapsLock to toggle CapsLock state
-!CapsLock:: return  ; A single return mysteriously works for this purpose
 
 ; #############################################################################
 ;   Emacs text edit commands
