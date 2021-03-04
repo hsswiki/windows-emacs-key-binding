@@ -188,6 +188,10 @@ CapsLock & Space:: sendInput, {RWin}
 ;   Windows system shortcuts
 ; #############################################################################
 
+; =============================================================================
+;   Power actions
+; =============================================================================
+
 ; LWin & 5 to sleep / 6 to hibernate / 7 to shutdown
 
 LWin & 5:: DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
@@ -207,6 +211,14 @@ IfMsgBox Ok
 else
     return
 return
+
+; =============================================================================
+;   Other Windows system shortcuts
+; =============================================================================
+
+; Override Windows File Explorer starting directory
+
+LWin & e:: Run, "S:\OneDrive"
 
 ; #############################################################################
 ;   Software-specific shortcuts
