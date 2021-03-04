@@ -50,8 +50,22 @@ from the context menu don't really disable the shortcuts.
 */
 
 LWin & 2:: Reload  ; Useful when the software stuck
-LWin & 3:: Edit
-LWin & 4:: Exitapp
+
+; Recompile itself into EXE. Will replace existing file sharing the same name.
+LWin & 3:: Run,
+(
+    "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe"
+    /in "EmacsKeyBinding.ahk" /icon "emacs_icon.ico"
+)  ; `()` for line break works only when placed at the beginning of lines.
+
+; Exit AHK
+LWin & 4::
+    Msgbox, 1, AHK Confirmation, Exit AHK? ???∑(ﾟДﾟノ)ノ
+    IfMsgBox Ok
+        Exitapp
+    else
+        return
+    return
 
 ; =============================================================================
 ;   Prepare CapsLock to use as a modifier key
@@ -197,20 +211,20 @@ CapsLock & Space:: sendInput, {RWin}
 LWin & 5:: DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
 
 LWin & 6::
-Msgbox, 1, AHK Confirmation, Hibernate? (^.−)☆
-IfMsgBox Ok
-    DllCall("PowrProf\SetSuspendState", "int", 1, "int", 0, "int", 0)
-else
+    Msgbox, 1, AHK Confirmation, Hibernate? (^.−)☆
+    IfMsgBox Ok
+        DllCall("PowrProf\SetSuspendState", "int", 1, "int", 0, "int", 0)
+    else
+        return
     return
-return
 
 LWin & 7::
-Msgbox, 1, AHK Confirmation, Shut down? _(:3」∠)_
-IfMsgBox Ok
-    Shutdown, 9
-else
+    Msgbox, 1, AHK Confirmation, Shut down? _(:3」∠)_
+    IfMsgBox Ok
+        Shutdown, 9
+    else
+        return
     return
-return
 
 ; =============================================================================
 ;   Other Windows system shortcuts
