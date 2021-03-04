@@ -17,9 +17,11 @@ virtual desktops.
 This script is implemented in AutoHotKey for the traditional (QWERTY) keyboard
 layout.
 
-To compile this script into an executable, with AHK installed, right-click the
-script and select "Compile Script." Wait for a second, and an EXE file will
-appear under the same directory.
+An executable (EXE) file, which can run independently (even if AHK is not
+installed), can be compiled from this script by using the shortcut Win & 3
+(defined below), though the compilation needs AHK to be installed. Or you can
+compile it manually, by right-clicking the script and select "Compile Script."
+Wait for a second, and an EXE file will appear under the same directory.
 
 Coding notes:
 
