@@ -170,6 +170,11 @@ CapsLock & Right:: sendInput, {Ctrl down}{LWin down}{Right}{LWin up}{Ctrl up}
 CapsLock & Left:: sendInput, {Ctrl down}{LWin down}{Left}{LWin up}{Ctrl up}
 CapsLock & Up:: sendInput, {LWin down}{Tab}{LWin up}
 
+; Switch desktops using only left hand
+LWin & d:: sendInput, {Ctrl down}{LWin down}{Right}{LWin up}{Ctrl up}
+LWin & a:: sendInput, {Ctrl down}{LWin down}{Left}{LWin up}{Ctrl up}
+LWin & w:: sendInput, {LWin down}{Tab}{LWin up}
+
 ; Open file
 LWin & o:: sendInput, {Enter}
 
@@ -178,6 +183,30 @@ LWin & o:: sendInput, {Enter}
 
 ; Spotlight search
 CapsLock & Space:: sendInput, {RWin}
+
+; #############################################################################
+;   Windows system shortcuts
+; #############################################################################
+
+; LWin & 5 to sleep / 6 to hibernate / 7 to shutdown
+
+LWin & 5:: DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
+
+LWin & 6::
+Msgbox, 1, AHK Confirmation, Hibernate? (^.−)☆
+IfMsgBox Ok
+    DllCall("PowrProf\SetSuspendState", "int", 1, "int", 0, "int", 0)
+else
+    return
+return
+
+LWin & 7::
+Msgbox, 1, AHK Confirmation, Shut down? _(:3」∠)_
+IfMsgBox Ok
+    Shutdown, 9
+else
+    return
+return
 
 ; #############################################################################
 ;   Software-specific shortcuts
