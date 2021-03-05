@@ -42,26 +42,30 @@ SendMode Input  ; Recommended for superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ; =============================================================================
-;   Quick AHK controls
+;   Quick AHK controls: Alt + Win + 1~4
 ; =============================================================================
 
-LWin & 1:: Suspend  ; Useful when gaming
+/* Note that Alt + Win + 5 to hibernate, 6 to sleep, 7 to shut down. See "power
+actions" for detail.
+*/
+
+!#1:: Suspend  ; Useful when gaming
 /* In AHK, "suspend" means temporarily disable the software (and the
 shortcuts), while "pause" means hold some looping action. Select "Pause Script"
 from the context menu don't really disable the shortcuts.
 */
 
-LWin & 2:: Reload  ; Useful when the software stuck
+!#2:: Reload  ; Useful when the software stuck
 
 ; Recompile itself into EXE. Will replace existing file sharing the same name.
-LWin & 3:: Run,
+!#3:: Run,
 (
     "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe"
     /in "EmacsKeyBinding.ahk" /icon "emacs_icon.ico"
 )  ; `()` for line break works only when placed at the beginning of lines.
 
 ; Exit AHK
-LWin & 4::
+!#4::
     Msgbox, 1, AHK Confirmation, Exit AHK? ???∑(ﾟДﾟノ)ノ
     IfMsgBox Ok
         Exitapp
@@ -208,11 +212,9 @@ CapsLock & Space:: sendInput, {RWin}
 ;   Power actions
 ; =============================================================================
 
-; LWin & 5 to sleep / 6 to hibernate / 7 to shutdown
+; Alt + Win + 5 to hibernate / 6 to sleep / 7 to shutdown
 
-LWin & 5:: DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
-
-LWin & 6::
+!#5::
     Msgbox, 1, AHK Confirmation, Hibernate? (^.−)☆
     IfMsgBox Ok
         DllCall("PowrProf\SetSuspendState", "int", 1, "int", 0, "int", 0)
@@ -220,7 +222,9 @@ LWin & 6::
         return
     return
 
-LWin & 7::
+!#6:: DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
+
+!#7::
     Msgbox, 1, AHK Confirmation, Shut down? _(:3」∠)_
     IfMsgBox Ok
         Shutdown, 9
