@@ -139,7 +139,7 @@ Alt & Space:: sendInput, {Alt down}{Shift down}{Shift up}{Alt up}
     ; Don't know why setting "Ctrl + Shift" in Win and mock it here won't work.
 
 ; #############################################################################
-;   Replace Ctrl with Alt/Win in common hot keys
+;   Replace Ctrl with Alt for common hot keys
 ; #############################################################################
 
 ; Since Ctrl is hard to reach as a modifier key.
@@ -157,21 +157,23 @@ Alt & w:: sendInput, {Ctrl down}w{Ctrl up}
 Alt & q:: sendInput, {Alt down}{F4}{Alt up}
 
 ; =============================================================================
-;   Use win instead of alt if f/b/p/n is involved
+;   Use Win instead of Alt if f/b/p/n is involved
 ; =============================================================================
 
+LWin & f:: sendInput, {Ctrl down}f{Ctrl up}  ; Find
 LWin & p:: sendInput, {Ctrl down}p{Ctrl up}  ; Print
 LWin & n:: sendInput, {Ctrl down}n{Ctrl up}  ; New
 
-LWin & f:: sendInput, {Ctrl down}f{Ctrl up}  ; Find
-
 ; #############################################################################
-;   Reflecting Mac system shortcuts
+;   Reflecting Mac shortcuts
 ; #############################################################################
 
 ; =============================================================================
+;   Mac system shortcuts
+; =============================================================================
+
 ;   Media control: Alt + Functional numeric keys
-; =============================================================================
+; -----------------------------------------------------------------------------
 
 Alt & F7:: Send {Media_Prev}
 Alt & F8:: Send {Media_Play_Pause}
@@ -181,9 +183,8 @@ Alt & F10:: Send {Volume_Mute}  ; Mnemonic: 0
 Alt & F11:: Send {Volume_Down}  ; -
 Alt & F12:: Send {Volume_Up}  ; +
 
-; =============================================================================
-;   Other system shortcuts
-; =============================================================================
+;   Other Mac system shortcuts
+; -----------------------------------------------------------------------------
 
 ; Switch virtual desktops
 CapsLock & Right:: sendInput, {Ctrl down}{LWin down}{Right}{LWin up}{Ctrl up}
@@ -203,6 +204,22 @@ LWin & o:: sendInput, {Enter}
 
 ; Spotlight search
 CapsLock & Space:: sendInput, {RWin}
+
+; =============================================================================
+;   Mac software shortcuts
+; =============================================================================
+
+;   Safari
+; -----------------------------------------------------------------------------
+
+; Focus on address bar
+LWin & ,:: sendInput, {Ctrl down}l{Ctrl up}
+
+;   Jupyter notebook
+; -----------------------------------------------------------------------------
+
+CapsLock & Enter:: sendInput, {Ctrl down}{Enter}{Ctrl up}
+CapsLock & _:: sendInput, {Ctrl down}_{Ctrl up}
 
 ; #############################################################################
 ;   Windows system shortcuts
@@ -239,35 +256,6 @@ CapsLock & Space:: sendInput, {RWin}
 ; Override Windows File Explorer starting directory
 
 LWin & e:: Run, "S:\OneDrive"
-
-; #############################################################################
-;   Software-specific shortcuts
-; #############################################################################
-
-; =============================================================================
-;   Internet browsers
-; =============================================================================
-
-; Incognito
-LWin & m:: sendInput, {Ctrl down}{Shift down}n{Shift up}{Ctrl up}
-
-; Focus on address bar
-LWin & ,:: sendInput, {Ctrl down}l{Ctrl up}
-
-; =============================================================================
-;   Jupyter notebook
-; =============================================================================
-
-CapsLock & Enter:: sendInput, {Ctrl down}{Enter}{Ctrl up}
-CapsLock & _:: sendInput, {Ctrl down}_{Ctrl up}
-
-; =============================================================================
-;   MS Word
-; =============================================================================
-
-LWin & b:: sendInput, {Ctrl down}b{Ctrl up}
-LWin & i:: sendInput, {Ctrl down}i{Ctrl up}
-LWin & u:: sendInput, {Ctrl down}u{Ctrl up}
 
 ; #############################################################################
 ;   Notes and references
