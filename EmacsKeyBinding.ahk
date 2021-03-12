@@ -191,11 +191,6 @@ CapsLock & Right:: sendInput, {Ctrl down}{LWin down}{Right}{LWin up}{Ctrl up}
 CapsLock & Left:: sendInput, {Ctrl down}{LWin down}{Left}{LWin up}{Ctrl up}
 CapsLock & Up:: sendInput, {LWin down}{Tab}{LWin up}
 
-; Switch virtual desktops using only left hand
-LWin & s:: sendInput, {Ctrl down}{LWin down}{Right}{LWin up}{Ctrl up}
-LWin & a:: sendInput, {Ctrl down}{LWin down}{Left}{LWin up}{Ctrl up}
-LWin & w:: sendInput, {LWin down}{Tab}{LWin up}
-
 ; Open file
 LWin & o:: sendInput, {Enter}
 
