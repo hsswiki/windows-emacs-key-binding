@@ -45,8 +45,8 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;   Quick AHK controls: Alt + Win + 1~4
 ; =============================================================================
 
-/* Note that Alt + Win + 5 to hibernate, 6 to sleep, 7 to shut down. See "power
-actions" for detail.
+/* Note that use Alt + Win + 5 to hibernate, 6 to sleep, 7 to shut down. See
+"power actions" for detail.
 */
 
 !#1:: Suspend  ; Useful when gaming
@@ -81,7 +81,8 @@ from the context menu don't really disable the shortcuts.
 CapsLock:: Ctrl
 
 /*
-CapsLock + any modifier key (Ctrl/Shift/Alt) to toggle CapsLock state.
+CapsLock + any modifier key to toggle CapsLock state. Don't know why. Even
+`*CapsLock::` won't change its behavior.
 
 `^CapsLock:: CapsLock` won't work here since `CapsLock & <key>` hot keys are
 present. That also prevents CapsLock from acting as Ctrl, though we specified
@@ -275,14 +276,13 @@ CapsLock & _:: sendInput, {Ctrl down}_{Ctrl up}
 ;   Special modifiers explained
 ; =============================================================================
 
-`{Blind}`: Preserve modifier key status to output
-    Ref: https://www.autohotkey.com/docs/commands/Send.htm#Blind
+- `{Blind}`: Preserve modifier key status to output
+    - Ref: https://www.autohotkey.com/docs/commands/Send.htm#Blind
 
-`$`: "direct in," to avoid hot key to recursively call itself.
-    Ref: https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
-
-`~`: "direct out," to not only trigger hot key but also present raw inputs.
-    Ref: https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
+- Symbols ref: https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
+    - `$`: "direct in," to avoid hot key to recursively call itself.
+    - `~`: "direct out," to not only trigger hot key but also present raw inputs.
+    - `*`: Modifier key wildcard.
 
 ; =============================================================================
 ;   Be careful with remapping
