@@ -94,6 +94,8 @@ Control-click, Ctrl-Shift-Esc, etc.
 The solution here https://www.autohotkey.com/docs/KeyList.htm#IME doesn't work.
 */
 
+AppsKey:: Ctrl
+
 ; #############################################################################
 ;   Emacs text edit commands
 ; #############################################################################
@@ -113,6 +115,9 @@ Alt & f:: sendInput, {Ctrl down}{Right}{Ctrl up}
 Alt & b:: sendInput, {Ctrl down}{Left}{Ctrl up}
 
 CapsLock & j:: sendInput, {Return}
+
+; Reverse search in shell
+CapsLock & r:: sendInput, {Ctrl down}{r}{Ctrl up}
 
 ; =============================================================================
 ;   Deletion
@@ -225,9 +230,9 @@ CapsLock & _:: sendInput, {Ctrl down}_{Ctrl up}
 ;   Power actions
 ; =============================================================================
 
-; Alt + Win + 5 to hibernate / 6 to sleep / 7 to shutdown
+; Alt + Win + h to hibernate / n to sleep / l to shut down
 
-!#5::
+!#h::
     Msgbox, 1, AHK Confirmation, Hibernate? (^.−)☆
     IfMsgBox Ok
         DllCall("PowrProf\SetSuspendState", "int", 1, "int", 0, "int", 0)
@@ -235,9 +240,9 @@ CapsLock & _:: sendInput, {Ctrl down}_{Ctrl up}
         return
     return
 
-!#6:: DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
+!#n:: DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
 
-!#7::
+!#l::
     Msgbox, 1, AHK Confirmation, Shut down? _(:3」∠)_
     IfMsgBox Ok
         Shutdown, 9
