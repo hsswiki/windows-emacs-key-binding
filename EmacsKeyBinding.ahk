@@ -116,9 +116,6 @@ Alt & b:: sendInput, {Ctrl down}{Left}{Ctrl up}
 
 CapsLock & j:: sendInput, {Return}
 
-; Reverse search in shell
-CapsLock & r:: sendInput, {Ctrl down}{r}{Ctrl up}
-
 ; =============================================================================
 ;   Deletion
 ; =============================================================================
@@ -216,12 +213,6 @@ CapsLock & Space:: sendInput, {RWin}
 ; Focus on address bar
 LWin & ,:: sendInput, {Ctrl down}l{Ctrl up}
 
-;   Jupyter notebook
-; -----------------------------------------------------------------------------
-
-CapsLock & Enter:: sendInput, {Ctrl down}{Enter}{Ctrl up}
-CapsLock & _:: sendInput, {Ctrl down}_{Ctrl up}
-
 ; #############################################################################
 ;   Windows system shortcuts
 ; #############################################################################
@@ -265,6 +256,24 @@ CapsLock & _:: sendInput, {Ctrl down}_{Ctrl up}
     SysGet, Height, 79
     WinMove, %Title%,, X1, Y1, Width, Height
     return
+
+; #############################################################################
+;   Software-specific shortcuts
+; #############################################################################
+
+; =============================================================================
+;   Jupyter notebook
+; =============================================================================
+
+CapsLock & Enter:: sendInput, {Ctrl down}{Enter}{Ctrl up}  ; Run cell
+CapsLock & /:: sendInput, {Ctrl down}/{Ctrl up}  ; Comment out
+CapsLock & _:: sendInput, {Ctrl down}_{Ctrl up}
+
+; =============================================================================
+; Shell reverse search
+; =============================================================================
+
+CapsLock & r:: sendInput, {Ctrl down}{r}{Ctrl up}
 
 ; #############################################################################
 ;   Notes and references
