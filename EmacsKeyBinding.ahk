@@ -184,7 +184,7 @@ Alt & F9:: Send {Media_Next}
 
 Alt & F10:: Send {Volume_Mute}  ; Mnemonic: 0
 Alt & F11:: Send {Volume_Down}  ; -
-Alt & F12:: Send {Volume_Up}  ; +
+Alt & F12:: Send {Volume_Up}    ; +
 
 ;   Other Mac system shortcuts
 ; -----------------------------------------------------------------------------
@@ -270,7 +270,7 @@ CapsLock & /:: sendInput, {Ctrl down}/{Ctrl up}  ; Comment out
 CapsLock & _:: sendInput, {Ctrl down}_{Ctrl up}
 
 ; =============================================================================
-; Shell reverse search
+;   Shell reverse search
 ; =============================================================================
 
 CapsLock & r:: sendInput, {Ctrl down}{r}{Ctrl up}
@@ -280,6 +280,23 @@ CapsLock & r:: sendInput, {Ctrl down}{r}{Ctrl up}
 ; #############################################################################
 
 /*
+; =============================================================================
+;   TODO
+; =============================================================================
+
+The following snippet can use CapsLock as Ctrl. Add conditional clauses in the
+loop to implement cursor movement etc. functionalities?
+
+$CapsLock::
+	While, GetKeyState("CapsLock","P")
+		Send, {Ctrl down}
+	Send, {Ctrl up}
+Return
+
+Ref: https://www.autohotkey.com/boards/viewtopic.php?f=5&t=37002&p=170261#p170261
+
+Shift - CapsLock - a etc. works? E.g. select until the beginning of the line.
+
 ; =============================================================================
 ;   Useful documentation
 ; =============================================================================
