@@ -41,6 +41,7 @@ Coding notes:
 SendMode Input  ; Recommended for superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
+SetCapsLockState, AlwaysOff  ; TODO
 ; =============================================================================
 ;   Quick AHK controls: Alt + Win + 1~4
 ; =============================================================================
@@ -70,15 +71,15 @@ from the context menu don't really disable the shortcuts.
     IfMsgBox Ok
         Exitapp
     else
-        return
-    return
+        Return
+    Return  ; Return is needed at the end of code blocks.
 
 ; =============================================================================
 ;   Prepare CapsLock to use as a modifier key
 ; =============================================================================
 
 ; Disables CapsLock to avoid mis-touch
-CapsLock:: Ctrl
+; CapsLock:: Ctrl TODO
 
 /*
 CapsLock + any modifier key to toggle CapsLock state. Don't know why. Even
@@ -104,15 +105,27 @@ AppsKey:: Ctrl
 ;   Cursor movement
 ; =============================================================================
 
-CapsLock & f:: sendInput, {Right}
-CapsLock & b:: sendInput, {Left}
-CapsLock & e:: sendInput, {End}
-CapsLock & a:: sendInput, {Home}
-CapsLock & p:: sendInput, {Up}
-CapsLock & n:: sendInput, {Down}
+; {Blind} in order to keep Shift pressed for selection if applicable.
+CapsLock & f:: sendInput {Blind}{Right}
+CapsLock & b:: sendInput {Blind}{Left}
+CapsLock & e:: sendInput {Blind}{End}
+CapsLock & a:: sendInput {Blind}{Home}
+CapsLock & p:: sendInput {Blind}{Up}
+CapsLock & n:: sendInput {Blind}{Down}
 
-Alt & f:: sendInput, {Ctrl down}{Right}{Ctrl up}
-Alt & b:: sendInput, {Ctrl down}{Left}{Ctrl up}
+Alt & f::
+    If GetKeyState("Shift")
+        SendInput {Shift Down}{Ctrl Down}{Right}{Ctrl Up}{Shift Up}
+    Else
+        sendInput {Ctrl down}{Right}{Ctrl up}
+    Return
+
+Alt & b::
+    If GetKeyState("Shift")
+        SendInput {Shift Down}{Ctrl Down}{Left}{Ctrl Up}{Shift Up}
+    Else
+        sendInput {Ctrl down}{Left}{Ctrl up}
+    Return
 
 CapsLock & j:: sendInput, {Return}
 
@@ -178,13 +191,13 @@ LWin & n:: sendInput, {Ctrl down}n{Ctrl up}  ; New
 ;   Media control: Alt + Functional numeric keys
 ; -----------------------------------------------------------------------------
 
-Alt & F7:: Send {Media_Prev}
-Alt & F8:: Send {Media_Play_Pause}
-Alt & F9:: Send {Media_Next}
+Alt & F7:: SendInput {Media_Prev}
+Alt & F8:: SendInput {Media_Play_Pause}
+Alt & F9:: SendInput {Media_Next}
 
-Alt & F10:: Send {Volume_Mute}  ; Mnemonic: 0
-Alt & F11:: Send {Volume_Down}  ; -
-Alt & F12:: Send {Volume_Up}    ; +
+Alt & F10:: SendInput {Volume_Mute}  ; Mnemonic: 0
+Alt & F11:: SendInput {Volume_Down}  ; -
+Alt & F12:: SendInput {Volume_Up}    ; +
 
 ;   Other Mac system shortcuts
 ; -----------------------------------------------------------------------------
@@ -288,14 +301,31 @@ The following snippet can use CapsLock as Ctrl. Add conditional clauses in the
 loop to implement cursor movement etc. functionalities?
 
 $CapsLock::
-	While, GetKeyState("CapsLock","P")
-		Send, {Ctrl down}
-	Send, {Ctrl up}
-Return
+    while, GetKeyState("CapsLock","P")
+        SendInput, {Ctrl down}
 
-Ref: https://www.autohotkey.com/boards/viewtopic.php?f=5&t=37002&p=170261#p170261
+            if GetKeyState("b", "P")
+                SendInput, {Ctrl up}
+                MsgBox, 1.
+                SendInput, {Left}
 
-Shift - CapsLock - a etc. works? E.g. select until the beginning of the line.
+    SendInput, {Ctrl up}
+return
+
+SetCapsLockState, AlwaysOff
+
+- Ref
+  - https://www.autohotkey.com/boards/viewtopic.php?f=5&t=37002&p=170261#p170261
+  - https://superuser.com/questions/515808/caplock-remapping-to-modifier-keys-fails-on-keyboard-repeat
+
+- Goal:
+  - CapsLock works as Ctrl. Hold to select multiple / open in new tab.
+  - CapsLock - b to use as arrow key, etc.
+    - Shift - CapsLock - b to continue selection
+    - Combine with number key to repeat cursor movement multiple times.
+      E.g. {Left 10}
+  - CapsLock won't be turn on with Alt - CapsLock etc.
+
 
 ; =============================================================================
 ;   Useful documentation
