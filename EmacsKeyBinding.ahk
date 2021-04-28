@@ -41,7 +41,8 @@ Coding notes:
 SendMode Input  ; Recommended for superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
-SetCapsLockState, AlwaysOff  ; TODO
+SetCapsLockState, AlwaysOff
+
 ; =============================================================================
 ;   Quick AHK controls: Alt + Win + 1~4
 ; =============================================================================
@@ -70,9 +71,7 @@ from the context menu don't really disable the shortcuts.
     Msgbox, 1, AHK Confirmation, Exit AHK? ???∑(ﾟДﾟノ)ノ
     IfMsgBox Ok
         Exitapp
-    else
-        Return
-    Return  ; Return is needed at the end of code blocks.
+    Return
 
 ; =============================================================================
 ;   Prepare CapsLock to use as a modifier key
@@ -80,6 +79,13 @@ from the context menu don't really disable the shortcuts.
 
 ; Disables CapsLock to avoid mis-touch
 ; CapsLock:: Ctrl TODO
+
+CapsLock & Esc::
+    If GetKeyState("CapsLock", "T")
+        SetCapsLockState, AlwaysOff
+    Else
+        SetCapsLockState, On
+    Return
 
 /*
 CapsLock + any modifier key to toggle CapsLock state. Don't know why. Even
@@ -191,13 +197,13 @@ LWin & n:: sendInput {Ctrl down}n{Ctrl up}  ; New
 ;   Media control: Alt + Functional numeric keys
 ; -----------------------------------------------------------------------------
 
-Alt & F7:: SendInput {Media_Prev}
-Alt & F8:: SendInput {Media_Play_Pause}
-Alt & F9:: SendInput {Media_Next}
+^!7:: SendInput {Media_Prev}
+^!8:: SendInput {Media_Play_Pause}
+^!9:: SendInput {Media_Next}
 
-Alt & F10:: SendInput {Volume_Mute}  ; Mnemonic: 0
-Alt & F11:: SendInput {Volume_Down}  ; -
-Alt & F12:: SendInput {Volume_Up}    ; +
+^!0:: SendInput {Volume_Mute}  ; Mnemonic: 0
+^!-:: SendInput {Volume_Down}  ; -
+^!=:: SendInput {Volume_Up}    ; +
 
 ;   Other Mac system shortcuts
 ; -----------------------------------------------------------------------------
@@ -227,50 +233,6 @@ CapsLock & Space:: sendInput {RWin}
 LWin & ,:: sendInput {Ctrl down}l{Ctrl up}
 
 ; #############################################################################
-;   Windows system shortcuts
-; #############################################################################
-
-; =============================================================================
-;   Power actions
-; =============================================================================
-
-; Alt + Win + h to hibernate / n to sleep / l to shut down
-
-!#h::
-    Msgbox, 1, AHK Confirmation, Hibernate? (^.−)☆
-    IfMsgBox Ok
-        DllCall("PowrProf\SetSuspendState", "int", 1, "int", 0, "int", 0)
-    else
-        return
-    return
-
-!#n:: DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
-
-!#l::
-    Msgbox, 1, AHK Confirmation, Shut down? _(:3」∠)_
-    IfMsgBox Ok
-        Shutdown, 9
-    else
-        return
-    return
-
-; =============================================================================
-;   Window actions
-; =============================================================================
-
-; Shift + Win + Up to maximize window to all extended displays
-; Ref: https://stackoverflow.com/a/9830200
-+#Up::
-    WinGetActiveTitle, Title
-    WinRestore, %Title%
-    SysGet, X1, 76
-    SysGet, Y1, 77
-    SysGet, Width, 78
-    SysGet, Height, 79
-    WinMove, %Title%,, X1, Y1, Width, Height
-    return
-
-; #############################################################################
 ;   Software-specific shortcuts
 ; #############################################################################
 
@@ -289,6 +251,79 @@ CapsLock & _:: sendInput {Ctrl down}_{Ctrl up}
 CapsLock & r:: sendInput {Ctrl down}{r}{Ctrl up}
 
 ; #############################################################################
+;   Mini Console
+; #############################################################################
+
+Alt & Esc::
+    Loop {  ; Back to the console if command not found.
+
+        InputBox, input_str, Mini Console, , , 150, 100
+
+        If ErrorLevel = 1  ; Cancel/Esc was pressed from the input box.
+            Break
+
+        arg_arr := StrSplit(input_str, A_Space)  ; Array index starts from 1.
+        cmd_str := arg_arr[1]
+
+; =============================================================================
+;   Utility
+; =============================================================================
+
+        ; Repetition. E.g. `rep = 77` will repeat the = key 77 times.
+        If (cmd_str = "rep") {
+            ; Must use `If () {}` instead of simple `If` since there are
+            ;   multiple statements in the clause. Otherwise error.
+            key_str := arg_arr[2]
+            n_rep_str := arg_arr[3]
+            SendInput % "{" key_str " " n_rep_str "}"
+            Break
+        }
+
+        ; Maximize window to all extended displays. E.g. `max`
+        ; Ref: https://stackoverflow.com/a/9830200
+        If (cmd_str = "max") {
+            WinGetActiveTitle, Title
+            WinRestore, %Title%
+            SysGet, X1, 76
+            SysGet, Y1, 77
+            SysGet, Width, 78
+            SysGet, Height, 79
+            WinMove, %Title%,, X1, Y1, Width, Height
+            Break
+        }
+
+; =============================================================================
+;   Power action
+; =============================================================================
+
+        ; Sleep. E.g. `sle`
+        If (cmd_str = "sle") {
+            DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
+            Break
+        }
+
+        ; Hibernate. E.g. `hib`
+        If (cmd_str = "hib") {
+            DllCall("PowrProf\SetSuspendState", "int", 1, "int", 0, "int", 0)
+            Break
+        }
+
+        ; Shut down. E.g. `shu`
+        If (cmd_str = "shu") {
+            Shutdown, 9
+            Break
+        }
+
+; =============================================================================
+;   If command not found
+; =============================================================================
+
+        MsgBox, ``%input_str%``: command not found.
+            ; ` is the escape character.
+    }
+    Return
+
+; #############################################################################
 ;   Notes and references
 ; #############################################################################
 
@@ -296,6 +331,8 @@ CapsLock & r:: sendInput {Ctrl down}{r}{Ctrl up}
 ; =============================================================================
 ;   TODO
 ; =============================================================================
+
+- 2021-04-28: Clean up the script.
 
 The following snippet can use CapsLock as Ctrl. Add conditional clauses in the
 loop to implement cursor movement etc. functionalities?
