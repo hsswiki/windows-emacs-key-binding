@@ -127,20 +127,20 @@ Alt & b::
         sendInput {Ctrl down}{Left}{Ctrl up}
     Return
 
-CapsLock & j:: sendInput, {Return}
+CapsLock & j:: sendInput {Return}
 
 ; =============================================================================
 ;   Deletion
 ; =============================================================================
 
-CapsLock & h:: sendInput, {Backspace}
-CapsLock & d:: sendInput, {Delete}
+CapsLock & h:: sendInput {Backspace}
+CapsLock & d:: sendInput {Delete}
 
-CapsLock & w:: sendInput, {Ctrl down}{Backspace}{Ctrl up}
-Alt & d:: sendInput, {Ctrl down}{Delete}{Ctrl up}
+CapsLock & w:: sendInput {Ctrl down}{Backspace}{Ctrl up}
+Alt & d:: sendInput {Ctrl down}{Delete}{Ctrl up}
 
-CapsLock & k:: sendInput, {Shift down}{End}{Shift up}{Delete}
-CapsLock & u:: sendInput, {Shift down}{Home}{Shift up}{Delete}
+CapsLock & k:: sendInput {Shift down}{End}{Shift up}{Delete}
+CapsLock & u:: sendInput {Shift down}{Home}{Shift up}{Delete}
 
 ; #############################################################################
 ;   Input method
@@ -151,7 +151,7 @@ LWin & Space:: vk1D  ; Muhennkann key on JP keyboards
     ; Ref: https://answers.microsoft.com/en-us/windows/forum/windows_10-other_settings/keyboard-shortcuts-changed-in-japanese-microsoft/49dbf61d-b367-4685-938b-6081465495ef?page=2
 
 ; Cycle through languages like Mac
-Alt & Space:: sendInput, {Alt down}{Shift down}{Shift up}{Alt up}
+Alt & Space:: sendInput {Alt down}{Shift down}{Shift up}{Alt up}
     ; Don't know why setting "Ctrl + Shift" in Win and mock it here won't work.
 
 ; #############################################################################
@@ -160,25 +160,25 @@ Alt & Space:: sendInput, {Alt down}{Shift down}{Shift up}{Alt up}
 
 ; Since Ctrl is hard to reach as a modifier key.
 
-Alt & c:: sendInput, {Ctrl down}c{Ctrl up}  ; Also to terminate terminal thread
-Alt & x:: sendInput, {Ctrl down}x{Ctrl up}
-Alt & v:: sendInput, {Ctrl down}v{Ctrl up}
+Alt & c:: sendInput {Ctrl down}c{Ctrl up}  ; Also to terminate terminal thread
+Alt & x:: sendInput {Ctrl down}x{Ctrl up}
+Alt & v:: sendInput {Ctrl down}v{Ctrl up}
 
-Alt & a:: sendInput, {Ctrl down}a{Ctrl up}
-Alt & z:: sendInput, {Ctrl down}z{Ctrl up}
+Alt & a:: sendInput {Ctrl down}a{Ctrl up}
+Alt & z:: sendInput {Ctrl down}z{Ctrl up}
 
-Alt & t:: sendInput, {Ctrl down}t{Ctrl up}
-Alt & s:: sendInput, {Ctrl down}s{Ctrl up}
-Alt & w:: sendInput, {Ctrl down}w{Ctrl up}
-Alt & q:: sendInput, {Alt down}{F4}{Alt up}
+Alt & t:: sendInput {Ctrl down}t{Ctrl up}
+Alt & s:: sendInput {Ctrl down}s{Ctrl up}
+Alt & w:: sendInput {Ctrl down}w{Ctrl up}
+Alt & q:: sendInput {Alt down}{F4}{Alt up}
 
 ; =============================================================================
 ;   Use Win instead of Alt if f/b/p/n is involved
 ; =============================================================================
 
-LWin & f:: sendInput, {Ctrl down}f{Ctrl up}  ; Find
-LWin & p:: sendInput, {Ctrl down}p{Ctrl up}  ; Print
-LWin & n:: sendInput, {Ctrl down}n{Ctrl up}  ; New
+LWin & f:: sendInput {Ctrl down}f{Ctrl up}  ; Find
+LWin & p:: sendInput {Ctrl down}p{Ctrl up}  ; Print
+LWin & n:: sendInput {Ctrl down}n{Ctrl up}  ; New
 
 ; #############################################################################
 ;   Reflecting Mac shortcuts
@@ -203,18 +203,18 @@ Alt & F12:: SendInput {Volume_Up}    ; +
 ; -----------------------------------------------------------------------------
 
 ; Switch virtual desktops
-CapsLock & Right:: sendInput, {Ctrl down}{LWin down}{Right}{LWin up}{Ctrl up}
-CapsLock & Left:: sendInput, {Ctrl down}{LWin down}{Left}{LWin up}{Ctrl up}
-CapsLock & Up:: sendInput, {LWin down}{Tab}{LWin up}
+CapsLock & Right:: sendInput {Ctrl down}{LWin down}{Right}{LWin up}{Ctrl up}
+CapsLock & Left:: sendInput {Ctrl down}{LWin down}{Left}{LWin up}{Ctrl up}
+CapsLock & Up:: sendInput {LWin down}{Tab}{LWin up}
 
 ; Open file
-LWin & o:: sendInput, {Enter}
+LWin & o:: sendInput {Enter}
 
 ; Delete file
-; Alt & Backspace:: sendInput, {Delete}  ; Doesn't work for unknown reason.
+; Alt & Backspace:: sendInput {Delete}  ; Doesn't work for unknown reason.
 
 ; Spotlight search
-CapsLock & Space:: sendInput, {RWin}
+CapsLock & Space:: sendInput {RWin}
 
 ; =============================================================================
 ;   Mac software shortcuts
@@ -224,7 +224,7 @@ CapsLock & Space:: sendInput, {RWin}
 ; -----------------------------------------------------------------------------
 
 ; Focus on address bar
-LWin & ,:: sendInput, {Ctrl down}l{Ctrl up}
+LWin & ,:: sendInput {Ctrl down}l{Ctrl up}
 
 ; #############################################################################
 ;   Windows system shortcuts
@@ -278,15 +278,15 @@ LWin & ,:: sendInput, {Ctrl down}l{Ctrl up}
 ;   Jupyter notebook
 ; =============================================================================
 
-CapsLock & Enter:: sendInput, {Ctrl down}{Enter}{Ctrl up}  ; Run cell
-CapsLock & /:: sendInput, {Ctrl down}/{Ctrl up}  ; Comment out
-CapsLock & _:: sendInput, {Ctrl down}_{Ctrl up}
+CapsLock & Enter:: sendInput {Ctrl down}{Enter}{Ctrl up}  ; Run cell
+CapsLock & /:: sendInput {Ctrl down}/{Ctrl up}  ; Comment out
+CapsLock & _:: sendInput {Ctrl down}_{Ctrl up}
 
 ; =============================================================================
 ;   Shell reverse search
 ; =============================================================================
 
-CapsLock & r:: sendInput, {Ctrl down}{r}{Ctrl up}
+CapsLock & r:: sendInput {Ctrl down}{r}{Ctrl up}
 
 ; #############################################################################
 ;   Notes and references
@@ -302,14 +302,14 @@ loop to implement cursor movement etc. functionalities?
 
 $CapsLock::
     while, GetKeyState("CapsLock","P")
-        SendInput, {Ctrl down}
+        SendInput {Ctrl down}
 
             if GetKeyState("b", "P")
-                SendInput, {Ctrl up}
+                SendInput {Ctrl up}
                 MsgBox, 1.
-                SendInput, {Left}
+                SendInput {Left}
 
-    SendInput, {Ctrl up}
+    SendInput {Ctrl up}
 return
 
 SetCapsLockState, AlwaysOff
@@ -364,9 +364,9 @@ LCtrl::
     KeyWait, %A_ThisHotKey%
     if A_TimeSinceThisHotkey >= 200  ; milliseconds
         SetCapsLockState % !GetKeyState("CapsLock", "T")
-        ; Simple `sendInput, {CapsLock}` won't turn off.
+        ; Simple `sendInput {CapsLock}` won't turn off.
     else
-        sendInput, {Ctrl down}{Shift down}{1}{Shift up}{Ctrl up}
+        sendInput {Ctrl down}{Shift down}{1}{Shift up}{Ctrl up}
     return
 
 */
