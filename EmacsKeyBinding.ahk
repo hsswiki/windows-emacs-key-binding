@@ -157,7 +157,15 @@ LWin & Space:: vk1D  ; Muhennkann key on JP keyboards
     ; Ref: https://answers.microsoft.com/en-us/windows/forum/windows_10-other_settings/keyboard-shortcuts-changed-in-japanese-microsoft/49dbf61d-b367-4685-938b-6081465495ef?page=2
 
 ; Cycle through languages like Mac
-Alt & Space:: sendInput {Alt down}{Shift down}{Shift up}{Alt up}
+Alt & Space::
+    PostMessage, 0x50, 0x02, 0, , A
+    Return
+; Ref
+;   - https://www.autohotkey.com/boards/viewtopic.php?t=37375
+;   - autohotkey.com/board/topic/41010-change-language-hotkey/?p=362385
+;   - https://gist.github.com/bdeshi/b073d4bfd98f0c77f7f137750851ac56
+
+;sendInput {Alt down}{Shift down}{Shift up}{Alt up}
     ; Don't know why setting "Ctrl + Shift" in Win and mock it here won't work.
 
 ; #############################################################################
@@ -173,7 +181,7 @@ Alt & v:: sendInput {Ctrl down}v{Ctrl up}
 Alt & a:: sendInput {Ctrl down}a{Ctrl up}
 Alt & z:: sendInput {Ctrl down}z{Ctrl up}
 
-Alt & t:: sendInput {Ctrl down}t{Ctrl up}
+; Alt & t:: sendInput {Ctrl down}t{Ctrl up}
 Alt & s:: sendInput {Ctrl down}s{Ctrl up}
 Alt & w:: sendInput {Ctrl down}w{Ctrl up}
 Alt & q:: sendInput {Alt down}{F4}{Alt up}
