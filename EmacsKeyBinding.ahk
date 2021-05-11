@@ -165,9 +165,6 @@ Alt & Space::
 ;   - autohotkey.com/board/topic/41010-change-language-hotkey/?p=362385
 ;   - https://gist.github.com/bdeshi/b073d4bfd98f0c77f7f137750851ac56
 
-;sendInput {Alt down}{Shift down}{Shift up}{Alt up}
-    ; Don't know why setting "Ctrl + Shift" in Win and mock it here won't work.
-
 ; #############################################################################
 ;   Replace Ctrl with Alt for common hot keys
 ; #############################################################################
@@ -262,7 +259,7 @@ CapsLock & r:: sendInput {Ctrl down}{r}{Ctrl up}
 ;   Mini Console
 ; #############################################################################
 
-Alt & Esc::
+LWin & Esc::
     Loop {  ; Back to the console if command not found.
 
         InputBox, input_str, Mini Console, , , 150, 100
@@ -274,10 +271,36 @@ Alt & Esc::
         cmd_str := arg_arr[1]
 
 ; =============================================================================
+;   Power actions
+; =============================================================================
+
+        ; Sleep.
+        ; E.g. `sle`
+        If (cmd_str = "sle") {
+            DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
+            Break
+        }
+
+        ; Hibernate.
+        ; E.g. `hib`
+        If (cmd_str = "hib") {
+            DllCall("PowrProf\SetSuspendState", "int", 1, "int", 0, "int", 0)
+            Break
+        }
+
+        ; Shut down.
+        ; E.g. `shu`
+        If (cmd_str = "shu") {
+            Shutdown, 9
+            Break
+        }
+
+; =============================================================================
 ;   Utilities
 ; =============================================================================
 
-        ; Repetition. E.g. `rep = 77` will repeat the = key 77 times.
+        ; Repetition.
+        ; E.g. `rep = 77` will repeat the = key 77 times.
         If (cmd_str = "rep") {
             ; Must use `If () {}` instead of simple `If` since there are
             ;   multiple statements in the clause. Otherwise error.
@@ -287,7 +310,8 @@ Alt & Esc::
             Break
         }
 
-        ; Maximize window to all extended displays. E.g. `max`
+        ; Maximize window to all extended displays.
+        ; E.g. `max`
         ; Ref: https://stackoverflow.com/a/9830200
         If (cmd_str = "max") {
             WinGetActiveTitle, Title
@@ -300,26 +324,76 @@ Alt & Esc::
             Break
         }
 
-; =============================================================================
-;   Power actions
-; =============================================================================
+        ; Web search shortcuts.
+        ; E.g. `s goo <search keywords>`
+        ; Search engine names consist of 3 characters. E.g. "bin" for Bing.
+        If (cmd_str = "s") {
+            search_engine_str := arg_arr[2]
+            search_str := SubStr(input_str, 7)  ; Start from the 7th character.
+            ; Replace whitespaces in the search string with plus signs.
+            search_str := StrReplace(search_str, A_Space, "+")
 
-        ; Sleep. E.g. `sle`
-        If (cmd_str = "sle") {
-            DllCall("PowrProf\SetSuspendState", "int", 0, "int", 0, "int", 0)
-            Break
-        }
+            ; Order search engines by name
 
-        ; Hibernate. E.g. `hib`
-        If (cmd_str = "hib") {
-            DllCall("PowrProf\SetSuspendState", "int", 1, "int", 0, "int", 0)
-            Break
-        }
+            ; "ajp" for Amazon.co.jp
+            If (search_engine_str = "ajp") {
+                Run, https://www.amazon.co.jp/s?k=%search_str%
+                Break
+            }
 
-        ; Shut down. E.g. `shu`
-        If (cmd_str = "shu") {
-            Shutdown, 9
-            Break
+            ; "aco" for Amazon.com
+            If (search_engine_str = "aco") {
+                Run, https://www.amazon.com/s?k=%search_str%
+                Break
+            }
+
+            ; "bai" for Baidu
+            If (search_engine_str = "bai") {
+                Run, https://www.baidu.com/s?wd=%search_str%
+                Break
+            }
+
+            ; "bin" for Bing
+            If (search_engine_str = "bin") {
+                Run, https://cn.bing.com/search?q=%search_str%
+                Break
+            }
+
+            ; "dou" for Douban
+            If (search_engine_str = "dou") {
+                Run, https://www.douban.com/search?q=%search_str%
+                Break
+            }
+
+            ; "goo" for Google
+            If (search_engine_str = "goo") {
+                Run, https://www.google.com/search?q=%search_str%
+                Break
+            }
+
+            ; "tao" for Taobao
+            If (search_engine_str = "tao") {
+                Run, https://s.taobao.com/search?q=%search_str%
+                Break
+            }
+
+            ; "you" for YouTube
+            If (search_engine_str = "you") {
+                Run, https://www.youtube.com/results?search_query=%search_str%
+                Break
+            }
+
+            ; "wik" for English WikiPedia
+            If (search_engine_str = "wik") {
+                Run, https://en.wikipedia.org/w/index.php?search=%search_str%
+                Break
+            }
+
+            ; "zhi" for Zhihu
+            If (search_engine_str = "zhi") {
+                Run, https://www.zhihu.com/search?q=%search_str%&type=content
+                Break
+            }
         }
 
 ; =============================================================================
