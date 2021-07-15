@@ -1,7 +1,7 @@
 ﻿/*
 Use Emacs and Mac-like Key Bindings on Windows PC
 
-hss.wiki
+hs@hss.wiki
 
 Since the text edit shortcuts on Emacs (and Mac) are very handy, this script
 brings some of them to PC. For example, C-p/n/b/f to move the cursor
@@ -356,6 +356,12 @@ LWin & Esc::
             ; "bin" for Bing
             If (search_engine_str = "bin") {
                 Run, https://cn.bing.com/search?q=%search_str%
+                Break
+            }
+
+            ; "cam" for Cambridge English-Chinese dictionary
+            If (search_engine_str = "cam") {
+                Run, https://dictionary.cambridge.org/us/dictionary/english-chinese-simplified/%search_str%
                 Break
             }
 
