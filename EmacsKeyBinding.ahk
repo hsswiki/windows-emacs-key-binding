@@ -112,41 +112,43 @@ AppsKey:: Ctrl
 ; =============================================================================
 
 ; {Blind} in order to keep Shift pressed for selection if applicable.
-CapsLock & f:: sendInput {Blind}{Right}
-CapsLock & b:: sendInput {Blind}{Left}
-CapsLock & e:: sendInput {Blind}{End}
-CapsLock & a:: sendInput {Blind}{Home}
-CapsLock & p:: sendInput {Blind}{Up}
-CapsLock & n:: sendInput {Blind}{Down}
+CapsLock & f:: SendInput {Blind}{Right}
+CapsLock & b:: SendInput {Blind}{Left}
+CapsLock & e:: SendInput {Blind}{End}
+CapsLock & a:: SendInput {Blind}{Home}
+CapsLock & p:: SendInput {Blind}{Up}
+CapsLock & n:: SendInput {Blind}{Down}
 
 Alt & f::
     If GetKeyState("Shift")
         SendInput {Shift Down}{Ctrl Down}{Right}{Ctrl Up}{Shift Up}
     Else
-        sendInput {Ctrl down}{Right}{Ctrl up}
+        SendInput {Ctrl down}{Right}{Ctrl up}
     Return
 
 Alt & b::
     If GetKeyState("Shift")
         SendInput {Shift Down}{Ctrl Down}{Left}{Ctrl Up}{Shift Up}
     Else
-        sendInput {Ctrl down}{Left}{Ctrl up}
+        SendInput {Ctrl down}{Left}{Ctrl up}
     Return
 
-CapsLock & j:: sendInput {Return}
+CapsLock & j:: SendInput {Return}
 
 ; =============================================================================
 ;   Deletion
 ; =============================================================================
 
-CapsLock & h:: sendInput {Backspace}
-CapsLock & d:: sendInput {Delete}
+CapsLock & h:: SendInput {Backspace}
+CapsLock & d:: SendInput {Delete}
 
-CapsLock & w:: sendInput {Ctrl down}{Backspace}{Ctrl up}
-Alt & d:: sendInput {Ctrl down}{Delete}{Ctrl up}
+CapsLock & w:: SendInput {Ctrl down}{Backspace}{Ctrl up}
+Alt & d:: SendInput {Ctrl down}{Delete}{Ctrl up}
 
-CapsLock & k:: sendInput {Shift down}{End}{Shift up}{Delete}
-CapsLock & u:: sendInput {Shift down}{Home}{Shift up}{Delete}
+CapsLock & k:: SendInput {Shift down}{End}{Shift up}{Delete}
+CapsLock & u:: SendInput {Shift down}{Home}{Shift up}{Delete}
+
+Alt & `:: SendInput {Esc}  ; Since on some keyboards Esc is hard to reach.
 
 ; #############################################################################
 ;   Input method
@@ -171,25 +173,25 @@ Alt & Space::
 
 ; Since Ctrl is hard to reach as a modifier key.
 
-Alt & c:: sendInput {Ctrl down}c{Ctrl up}  ; Also to terminate terminal thread
-Alt & x:: sendInput {Ctrl down}x{Ctrl up}
-Alt & v:: sendInput {Ctrl down}v{Ctrl up}
+Alt & c:: SendInput {Ctrl down}c{Ctrl up}  ; Also to terminate terminal thread
+Alt & x:: SendInput {Ctrl down}x{Ctrl up}
+Alt & v:: SendInput {Ctrl down}v{Ctrl up}
 
-Alt & a:: sendInput {Ctrl down}a{Ctrl up}
-Alt & z:: sendInput {Ctrl down}z{Ctrl up}
+Alt & a:: SendInput {Ctrl down}a{Ctrl up}
+Alt & z:: SendInput {Ctrl down}z{Ctrl up}
 
-; Alt & t:: sendInput {Ctrl down}t{Ctrl up}
-Alt & s:: sendInput {Ctrl down}s{Ctrl up}
-Alt & w:: sendInput {Ctrl down}w{Ctrl up}
-Alt & q:: sendInput {Alt down}{F4}{Alt up}
+; Alt & t:: SendInput {Ctrl down}t{Ctrl up}
+Alt & s:: SendInput {Ctrl down}s{Ctrl up}
+Alt & w:: SendInput {Ctrl down}w{Ctrl up}
+Alt & q:: SendInput {Alt down}{F4}{Alt up}
 
 ; =============================================================================
 ;   Use Win instead of Alt if f/b/p/n is involved
 ; =============================================================================
 
-LWin & f:: sendInput {Ctrl down}f{Ctrl up}  ; Find
-LWin & p:: sendInput {Ctrl down}p{Ctrl up}  ; Print
-LWin & n:: sendInput {Ctrl down}n{Ctrl up}  ; New
+LWin & f:: SendInput {Ctrl down}f{Ctrl up}  ; Find
+LWin & p:: SendInput {Ctrl down}p{Ctrl up}  ; Print
+LWin & n:: SendInput {Ctrl down}n{Ctrl up}  ; New
 
 ; #############################################################################
 ;   Reflecting Mac shortcuts
@@ -214,18 +216,18 @@ LWin & n:: sendInput {Ctrl down}n{Ctrl up}  ; New
 ; -----------------------------------------------------------------------------
 
 ; Switch virtual desktops
-CapsLock & Right:: sendInput {Ctrl down}{LWin down}{Right}{LWin up}{Ctrl up}
-CapsLock & Left:: sendInput {Ctrl down}{LWin down}{Left}{LWin up}{Ctrl up}
-CapsLock & Up:: sendInput {LWin down}{Tab}{LWin up}
+CapsLock & Right:: SendInput {Ctrl down}{LWin down}{Right}{LWin up}{Ctrl up}
+CapsLock & Left:: SendInput {Ctrl down}{LWin down}{Left}{LWin up}{Ctrl up}
+CapsLock & Up:: SendInput {LWin down}{Tab}{LWin up}
 
 ; Open file
-LWin & o:: sendInput {Enter}
+LWin & o:: SendInput {Enter}
 
 ; Delete file
-; Alt & Backspace:: sendInput {Delete}  ; Doesn't work for unknown reason.
+; Alt & Backspace:: SendInput {Delete}  ; Doesn't work for unknown reason.
 
 ; Spotlight search
-CapsLock & Space:: sendInput {RWin}
+CapsLock & Space:: SendInput {RWin}
 
 ; =============================================================================
 ;   Mac software shortcuts
@@ -235,7 +237,7 @@ CapsLock & Space:: sendInput {RWin}
 ; -----------------------------------------------------------------------------
 
 ; Focus on address bar
-LWin & ,:: sendInput {Ctrl down}l{Ctrl up}
+LWin & ,:: SendInput {Ctrl down}l{Ctrl up}
 
 ; #############################################################################
 ;   Software-specific shortcuts
@@ -245,15 +247,15 @@ LWin & ,:: sendInput {Ctrl down}l{Ctrl up}
 ;   Jupyter notebook
 ; =============================================================================
 
-CapsLock & Enter:: sendInput {Ctrl down}{Enter}{Ctrl up}  ; Run cell
-CapsLock & /:: sendInput {Ctrl down}/{Ctrl up}  ; Comment out
-CapsLock & _:: sendInput {Ctrl down}_{Ctrl up}
+CapsLock & Enter:: SendInput {Ctrl down}{Enter}{Ctrl up}  ; Run cell
+CapsLock & /:: SendInput {Ctrl down}/{Ctrl up}  ; Comment out
+CapsLock & _:: SendInput {Ctrl down}_{Ctrl up}
 
 ; =============================================================================
 ;   Shell reverse search
 ; =============================================================================
 
-CapsLock & r:: sendInput {Ctrl down}{r}{Ctrl up}
+CapsLock & r:: SendInput {Ctrl down}{r}{Ctrl up}
 
 ; #############################################################################
 ;   Mini Console
@@ -425,9 +427,7 @@ LWin & Esc::
 The following snippet can use CapsLock as Ctrl. Add conditional clauses in the
 loop to implement cursor movement etc. functionalities?
 
-$CapsLock::
-    while, GetKeyState("CapsLock","P")
-        SendInput {Ctrl down}
+$CapsLock:: while, GetKeyState("CapsLock","P") SendInput {Ctrl down}
 
             if GetKeyState("b", "P")
                 SendInput {Ctrl up}
@@ -447,8 +447,8 @@ SetCapsLockState, AlwaysOff
   - CapsLock works as Ctrl. Hold to select multiple / open in new tab.
   - CapsLock - b to use as arrow key, etc.
     - Shift - CapsLock - b to continue selection
-    - Combine with number key to repeat cursor movement multiple times.
-      E.g. {Left 10}
+    - Combine with number key to repeat cursor movement multiple times. E.g.
+      {Left 10}
   - CapsLock won't be turn on with Alt - CapsLock etc.
 
 
@@ -467,15 +467,27 @@ SetCapsLockState, AlwaysOff
 
 - Symbols ref: https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
     - `$`: "direct in," to avoid hot key to recursively call itself.
-    - `~`: "direct out," to not only trigger hot key but also present raw inputs.
+    - `~`: "direct out," to not only trigger hot key but also present raw
+      inputs.
     - `*`: Modifier key wildcard.
 
 ; =============================================================================
-;   Be careful with remapping
+;   Notes
 ; =============================================================================
 
-A remapping like `Alt & c::...` will also consume other hot keys such as
-Shift + Alt + c or Ctrl + Alt + c, since they are forced to fire prematurely.
+;   Be careful with remapping
+; -----------------------------------------------------------------------------
+
+A remapping like `Alt & c::...` will also consume other hot keys such as Shift
++ Alt + c or Ctrl + Alt + c, since they are forced to fire prematurely.
+
+;   Error: This line will never execute, due to Return preceeding it
+; -----------------------------------------------------------------------------
+
+This error occurs when you want to define a global variable in the middle of
+the script. In AHK, globals can only be defined at the top of the script, so
+that they are not preceeded by any return statements. Note that double-colon
+hotkey definitions have implicit returns.
 
 ; =============================================================================
 ;   Snippets
@@ -484,14 +496,22 @@ Shift + Alt + c or Ctrl + Alt + c, since they are forced to fire prematurely.
 ;   Long/short press
 ; -----------------------------------------------------------------------------
 
-; Long press LCtrl as CapsLock, short press to change to English.
-LCtrl::
-    KeyWait, %A_ThisHotKey%
-    if A_TimeSinceThisHotkey >= 200  ; milliseconds
-        SetCapsLockState % !GetKeyState("CapsLock", "T")
-        ; Simple `sendInput {CapsLock}` won't turn off.
-    else
-        sendInput {Ctrl down}{Shift down}{1}{Shift up}{Ctrl up}
-    return
+; Long press LCtrl as CapsLock, short press to change to English. LCtrl::
+KeyWait, %A_ThisHotKey% if A_TimeSinceThisHotkey >= 200  ; milliseconds
+SetCapsLockState % !GetKeyState("CapsLock", "T"); Simple `SendInput {CapsLock}`
+won't turn off. else SendInput {Ctrl down}{Shift down}{1}{Shift up}{Ctrl up}
+return
+
+;   Toggle a hotkey
+; -----------------------------------------------------------------------------
+
+DO_USE_BACKTICK_AS_ESC := true  ; Should be placed on top.
+
+F4:: If DO_USE_BACKTICK_AS_ESC {Hotkey, ``, Off  ; Use backtick to escape
+    backtick. DO_USE_BACKTICK_AS_ESC := false MsgBox, %DO_USE_BACKTICK_AS_ESC%}
+    Else {Hotkey, ``, On DO_USE_BACKTICK_AS_ESC := true MsgBox,
+    %DO_USE_BACKTICK_AS_ESC%
+    }
+    Return
 
 */
