@@ -391,6 +391,12 @@ LWin & Esc::
                 Break
             }
 
+            ; "web" for Weblio Japanese dictionary
+            If (search_engine_str = "wik") {
+                Run, https://www.weblio.jp/content/%search_str%
+                Break
+            }
+
             ; "wik" for English WikiPedia
             If (search_engine_str = "wik") {
                 Run, https://en.wikipedia.org/w/index.php?search=%search_str%
