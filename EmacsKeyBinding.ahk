@@ -392,7 +392,7 @@ LWin & Esc::
             }
 
             ; "web" for Weblio Japanese dictionary
-            If (search_engine_str = "wik") {
+            If (search_engine_str = "web") {
                 Run, https://www.weblio.jp/content/%search_str%
                 Break
             }
