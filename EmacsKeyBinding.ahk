@@ -257,6 +257,14 @@ CapsLock & _:: SendInput {Ctrl down}_{Ctrl up}
 
 CapsLock & r:: SendInput {Ctrl down}{r}{Ctrl up}
 
+; =============================================================================
+;   Browser switch tab
+; =============================================================================
+
+; Conflict with VSCode Alt &j/l
+; Alt & j:: SendInput {Ctrl down}{Shift down}{Tab}{Shift up}{Ctrl up}
+; Alt & l:: SendInput {Ctrl down}{Tab}{Ctrl up}
+
 ; #############################################################################
 ;   Mini Console
 ; #############################################################################
